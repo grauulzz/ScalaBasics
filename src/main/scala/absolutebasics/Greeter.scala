@@ -4,8 +4,9 @@ import scala.collection.JavaConverters._
 
 class Greeter(prefix: String, suffix: String) {
 
-  def greet(name: String): Unit =
-    println(prefix + name + suffix)
+  def greet(name: String): Unit = {
+      println(prefix + name + suffix)
+  }
 
   def getSysUserName = {
     def name: String = System.getProperty("user.name").toString

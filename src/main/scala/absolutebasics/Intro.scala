@@ -3,7 +3,9 @@ package absolutebasics
 import jdk.nashorn.internal.objects.annotations.Property
 import scala.collection.JavaConverters._
 
-object Intro extends App {
+object Intro {
+
+  Console.println(1)
 
   // named result of an expression is a value
   val x = 1 + 1
@@ -66,7 +68,7 @@ object Intro extends App {
   val vol3 = v(3, 3, 3)
 
   // could use type inference here but showing what the function type will return is handy
-  def sequenceOfVolumes(values : Int*):Seq[Int] = {
+  def sequenceOfVolumes(values: Int*): Seq[Int] = {
     values
   }
 
@@ -78,14 +80,14 @@ object Intro extends App {
 
   // returning "Unit" is similiar to void, signifies nothing meaningfull to return as a type
   def getCubicStringSequence(volume: Seq[Int]): Unit = {
-    for((x,i) <- volume.view.zipWithIndex) println("[" + i + "] " + getCubicString(x))
+    for ((x, i) <- volume.view.zipWithIndex) println("[" + i + "] " + getCubicString(x))
   }
 
-  var getCubicStringOneliner = for((x,i) <- sequenceOfVolumes(vol1, vol2, vol3).view.zipWithIndex) println("[" + i + "] " + getCubicString(x))
+  var getCubicStringOneliner = for ((x, i) <- sequenceOfVolumes(vol1, vol2, vol3)
+    .view.zipWithIndex) println("[" + i + "] " + getCubicString(x))
 
-  println(getCubicString(vol1))
-  println(getCubicStringSequence(sequenceOfVolumes(vol1, vol2, vol3)))
   println(getCubicStringOneliner)
+  getCubicStringSequence(sequenceOfVolumes(vol1, vol2, vol3))
 
   // currying example (multiple parameter lists)
   val numbers = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
@@ -94,16 +96,46 @@ object Intro extends App {
 
   // example of multiple param lists
   def addThenMultiply(x: Int, y: Int)(multiplier: Int): Int = (x + y) * multiplier
+
   println(addThenMultiply(1, 2)(3)) // 9
 
-  // "Greeter" is definied as a seperate Class in this package
+  // class example
   val greeter = new Greeter("Hello, ", "!")
   greeter.greet("Scala developer") // Hello, Scala developer!
 
   // Greeter class has some methods to use some cool scala built in methods (like getProperties())
-  val getStuff = new Greeter("Hello, ", "!" )
+  val getStuff = new Greeter("Hello, ", "!")
   getStuff.greet(getStuff.getSysUserName) // getStuff.getEnvVariables or getStuff.getSysProperties
-  
+
+  // case class example
+  // case classes can be instantiated without the "new" keyword
+  val point = Point(1, 2)
+  val anotherPoint = Point(1, 2)
+
+  // instances of case classes are compared by value, not by reference:  (same as java.. nothin new here)
+  if (point == anotherPoint) {
+    println(s"$point and $anotherPoint are the same.")
+  } else {
+    println(s"$point and $anotherPoint are different.")
+  }
+
+  // declaring a new instance of object and calling a method addOne()
+  var newObjectInstance: Int = Intro.addOne(1)
+  println(newObjectInstance)
+
+  // reassigning the new object to an instance of this objects method addOne()
+  newObjectInstance += this.addOne(1)
+  println(newObjectInstance)
+
+  // shit override default method attempt. Works but seems wrong
+  val customGreeter = new CustomizableGreeter("How are you, ", "?")
+  customGreeter.greet("Scala developer") // How are you, Scala developer?
+
+  println(customGreeter.getSysUserName)
+
+  def main(args: Array[String]): Unit = {
+    println("ah, the beloved main method (extends App does the same thing btw)")
+  }
 }
 
 
