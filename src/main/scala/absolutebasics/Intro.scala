@@ -1,10 +1,9 @@
-package unifiedtypes
+package absolutebasics
 
 import jdk.nashorn.internal.objects.annotations.Property
 import scala.collection.JavaConverters._
 
-object UnifiedTypes extends App {
-  println("Basics & Unified Types")
+object Intro extends App {
 
   // named result of an expression is a value
   val x = 1 + 1
@@ -101,10 +100,10 @@ object UnifiedTypes extends App {
   val greeter = new Greeter("Hello, ", "!")
   greeter.greet("Scala developer") // Hello, Scala developer!
 
+  // Greeter class has some methods to use some cool scala built in methods (like getProperties())
   val getStuff = new Greeter("Hello, ", "!" )
-  getStuff.greet(getStuff.getSysUserName)
-  // getStuff.getEnvVariables
-  // getStuff.getSysUserName
+  getStuff.greet(getStuff.getSysUserName) // getStuff.getEnvVariables or getStuff.getSysProperties
+  
 }
 
 

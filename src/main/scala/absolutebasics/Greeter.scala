@@ -1,4 +1,4 @@
-package unifiedtypes
+package absolutebasics
 import jdk.nashorn.internal.objects.annotations.Property
 import scala.collection.JavaConverters._
 
